@@ -1,28 +1,27 @@
 'use strict';
-
-class Storage {
-  #items;
-  constructor(items = {}) {
-    this.#items = items;
+class StringBuilder {
+  #value;
+  constructor(value = {}) {
+    this.#value = value;
   }
-  getItems() {
-    return this.#items;
+  getValue() {
+    return this.#value;
   }
-  addItem(newItem) {
-    this.#items.push(newItem);
+  padEnd(str) {
+    this.#value.push(str);
   }
-  removeItem(itemToRemove) {
-    const i = this.#items.indexOf(itemToRemove);
-    if (i === -1) {
-      return;
-    }
-    this.#items.splice(i, 1);
+  padStart(str) {
+    str.concat(this.#value);
+  }
+  padBoth(str) {
+    str.concat(this.#value).push(str);
   }
 }
-
-const storage = new Storage(['Nanitoids', 'Prolonger', 'Antigravitator']);
-console.log(storage.getItems()); // ["Nanitoids", "Prolonger", "Antigravitator"]
-storage.addItem('Droid');
-console.log(storage.getItems()); // ["Nanitoids", "Prolonger", "Antigravitator", "Droid"]
-storage.removeItem('Prolonger');
-console.log(storage.getItems()); // ["Nanitoids", "Antigravitator", "Droid"]
+const builder = new StringBuilder('.');
+console.log(builder.getValue()); // "."
+builder.padStart('^');
+console.log(builder.getValue()); // "^."
+builder.padEnd('^');
+console.log(builder.getValue()); // "^.^"
+builder.padBoth('=');
+console.log(builder.getValue()); // "=^.^="
