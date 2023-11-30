@@ -1,84 +1,28 @@
 'use strict';
 
-const sortByDescendingFriendCount = users =>
-  users.toSorted(
-    (firstUser, secondUser) =>
-      secondUser.friends.length - firstUser.friends.length
-  );
+class Storage {
+  #items;
+  constructor(items = {}) {
+    this.#items = items;
+  }
+  getItems() {
+    return this.#items;
+  }
+  addItem(newItem) {
+    this.#items.push(newItem);
+  }
+  removeItem(itemToRemove) {
+    const i = this.#items.indexOf(itemToRemove);
+    if (i === -1) {
+      return;
+    }
+    this.#items.splice(i, 1);
+  }
+}
 
-console.log(
-  sortByDescendingFriendCount([
-    {
-      name: 'Moore Hensley',
-      friends: ['Sharron Pace'],
-      gender: 'male',
-    },
-    {
-      name: 'Sharlene Bush',
-      friends: ['Briana Decker', 'Sharron Pace'],
-      gender: 'female',
-    },
-    {
-      name: 'Ross Vazquez',
-      friends: ['Marilyn Mcintosh', 'Padilla Garrison', 'Naomi Buckner'],
-      gender: 'male',
-    },
-    {
-      name: 'Elma Head',
-      friends: ['Goldie Gentry', 'Aisha Tran'],
-      gender: 'female',
-    },
-    {
-      name: 'Carey Barr',
-      friends: ['Jordan Sampson', 'Eddie Strong'],
-      gender: 'male',
-    },
-    {
-      name: 'Blackburn Dotson',
-      friends: ['Jacklyn Lucas', 'Linda Chapman'],
-      gender: 'male',
-    },
-    {
-      name: 'Sheree Anthony',
-      friends: ['Goldie Gentry', 'Briana Decker'],
-      gender: 'female',
-    },
-  ])
-);
-// [
-//   {
-//     name: "Ross Vazquez",
-//     friends: ["Marilyn Mcintosh", "Padilla Garrison", "Naomi Buckner"],
-//     gender: "male"
-//   },
-//   {
-//     name: "Sharlene Bush",
-//     friends: ["Briana Decker", "Sharron Pace"],
-//     gender: "female"
-//   },
-//   {
-//     name: "Elma Head",
-//     friends: ["Goldie Gentry", "Aisha Tran"],
-//     gender: "female"
-//   },
-//   {
-//     name: "Carey Barr",
-//     friends: ["Jordan Sampson", "Eddie Strong"],
-//     gender: "male"
-//   },
-//   {
-//     name: "Blackburn Dotson",
-//     friends: ["Jacklyn Lucas", "Linda Chapman"],
-//     gender: "male"
-//   },
-//   {
-//     name: "Sheree Anthony",
-//     friends: ["Goldie Gentry", "Briana Decker"],
-//     gender: "female"
-//   },
-//   {
-//     name: "Moore Hensley",
-//     friends: ["Sharron Pace"],
-//     gender: "male"
-//   }
-// ]
+const storage = new Storage(['Nanitoids', 'Prolonger', 'Antigravitator']);
+console.log(storage.getItems()); // ["Nanitoids", "Prolonger", "Antigravitator"]
+storage.addItem('Droid');
+console.log(storage.getItems()); // ["Nanitoids", "Prolonger", "Antigravitator", "Droid"]
+storage.removeItem('Prolonger');
+console.log(storage.getItems()); // ["Nanitoids", "Antigravitator", "Droid"]
