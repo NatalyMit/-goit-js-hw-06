@@ -1,20 +1,22 @@
 'use strict';
 class StringBuilder {
   #value;
-  constructor(value = {}) {
-    this.#value = value;
+  constructor(initialValue = {}) {
+    this.#value = initialValue;
   }
   getValue() {
     return this.#value;
   }
   padEnd(str) {
-    this.#value.push(str);
+    this.#value = this.#value.padEnd(this.#value.length + str.length, str);
   }
   padStart(str) {
-    str.concat(this.#value);
+    this.#value = this.#value.padStart(this.#value.length + str.length, str);
   }
   padBoth(str) {
-    str.concat(this.#value).push(str);
+    this.#value = this.#value
+      .padStart(this.#value.length + str.length, str)
+      .padEnd(this.#value.length + str.length + str.length, str);
   }
 }
 const builder = new StringBuilder('.');
