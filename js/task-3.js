@@ -1,8 +1,8 @@
 'use strict';
 class StringBuilder {
   #value;
-  constructor(initialValue = {}) {
-    this.#value = initialValue;
+  constructor(initialValue = '') {
+    this.#value = String(initialValue);
   }
   getValue() {
     return this.#value;
@@ -14,9 +14,7 @@ class StringBuilder {
     this.#value = this.#value.padStart(this.#value.length + str.length, str);
   }
   padBoth(str) {
-    this.#value = this.#value
-      .padStart(this.#value.length + str.length, str)
-      .padEnd(this.#value.length + str.length + str.length, str);
+    this.#value = str + this.#value + str;
   }
 }
 const builder = new StringBuilder('.');
